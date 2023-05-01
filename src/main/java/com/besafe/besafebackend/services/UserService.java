@@ -43,4 +43,8 @@ public class UserService {
     public String getUserSalt(String userId){
         return userDao.getUserSalt(userId);
     }
+
+    public String getUserDigest(String userId){
+        return userDao.getUserDigest(userId);
+    }
 }

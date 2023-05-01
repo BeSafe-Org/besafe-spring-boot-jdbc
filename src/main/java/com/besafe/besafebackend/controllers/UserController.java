@@ -1,10 +1,7 @@
 package com.besafe.besafebackend.controllers;
 
 import com.besafe.besafebackend.modals.Classes.Common.ResultImpl;
-import com.besafe.besafebackend.modals.Classes.User.CheckIfUserExistsResult;
-import com.besafe.besafebackend.modals.Classes.User.GenerateUserSaltResult;
-import com.besafe.besafebackend.modals.Classes.User.GetUserSaltResult;
-import com.besafe.besafebackend.modals.Classes.User.UserImpl;
+import com.besafe.besafebackend.modals.Classes.User.*;
 import com.besafe.besafebackend.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -89,13 +86,17 @@ public class UserController {
     }
 
     @GetMapping("/user/digest/{userId}")
-    public ResultImpl getUserDigest(@PathVariable String userId){
-        ResultImpl result = new ResultImpl(1,"Failure");
+    public GetUserDigestResult getUserDigest(@PathVariable String userId){
+        GetUserDigestResult getUserDigestResult = new GetUserDigestResult(1,"Failure");
         try{
-            return result;
+            String dbResult = userService.getUserDigest(userId);
+            getUserDigestResult.setErrorCode(0);
+            getUserDigestResult.setErrorMessage("Success");
+            getUserDigestResult.setUserDigest(dbResult);
+            return getUserDigestResult;
         }
         catch(Exception e){
-            return result;
+            return getUserDigestResult;
         }
     }
 }

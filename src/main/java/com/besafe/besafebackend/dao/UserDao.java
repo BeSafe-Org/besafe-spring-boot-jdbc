@@ -81,4 +81,15 @@ public class UserDao {
             return null;
         }
     }
+
+    public String getUserDigest(String userId){
+        try{
+            String query = "SELECT USERDIGEST FROM USER WHERE USERID = ?";
+            String dbResult = jdbcTemplate.queryForObject(query,String.class,userId);
+            return dbResult;
+        }
+        catch(Exception e){
+            return null;
+        }
+    }
 }
