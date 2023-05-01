@@ -70,4 +70,15 @@ public class UserDao {
             return 0;
         }
     }
+
+    public String getUserSalt(String userId){
+        try{
+            String query = "SELECT USERSALT FROM USER WHERE USERID = ?";
+            String dbResult = jdbcTemplate.queryForObject(query,String.class,userId);
+            return dbResult;
+        }
+        catch(Exception e){
+            return null;
+        }
+    }
 }

@@ -39,4 +39,8 @@ public class UserService {
     public int storeUserDigest(String userId, String userDigest){
         return userDao.storeUserDigest(userId, userDigest);
     }
+
+    public String getUserSalt(String userId){
+        return userDao.getUserSalt(userId);
+    }
 }

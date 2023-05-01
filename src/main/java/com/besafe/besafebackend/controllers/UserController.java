@@ -3,6 +3,7 @@ package com.besafe.besafebackend.controllers;
 import com.besafe.besafebackend.modals.Classes.Common.ResultImpl;
 import com.besafe.besafebackend.modals.Classes.User.CheckIfUserExistsResult;
 import com.besafe.besafebackend.modals.Classes.User.GenerateUserSaltResult;
+import com.besafe.besafebackend.modals.Classes.User.GetUserSaltResult;
 import com.besafe.besafebackend.modals.Classes.User.UserImpl;
 import com.besafe.besafebackend.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,7 +37,7 @@ public class UserController {
     }
 
     @PutMapping("/user/salt/{userId}")
-    public GenerateUserSaltResult generateAndStoreUserSalt(@PathVariable String userId){
+        public GenerateUserSaltResult generateAndStoreUserSalt(@PathVariable String userId){
         GenerateUserSaltResult generateUserSaltResult = new GenerateUserSaltResult(1, "Failure");
         try{
             String salt = userService.generateAndStoreUserSalt(userId);
@@ -72,8 +73,23 @@ public class UserController {
         }
     }
 
-    @GetMapping("/user/digest/userId")
-    public ResultImpl getUserDigest(@RequestParam String userId){
+    @GetMapping("/user/salt/{userId}")
+    public GetUserSaltResult getUserSalt(@PathVariable String userId){
+        GetUserSaltResult getUserSaltResult = new GetUserSaltResult(1,"Failure");
+        try{
+            String dbResult = userService.getUserSalt(userId);
+            getUserSaltResult.setErrorCode(0);
+            getUserSaltResult.setErrorMessage("Success");
+            getUserSaltResult.setUserSalt(dbResult);
+            return getUserSaltResult;
+        }
+        catch(Exception e){
+            return getUserSaltResult;
+        }
+    }
+
+    @GetMapping("/user/digest/{userId}")
+    public ResultImpl getUserDigest(@PathVariable String userId){
         ResultImpl result = new ResultImpl(1,"Failure");
         try{
             return result;
