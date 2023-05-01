@@ -3,7 +3,7 @@ package com.besafe.besafebackend.modals.Classes.User;
 import com.besafe.besafebackend.modals.Classes.Common.ResultImpl;
 
 public class CheckIfUserExistsResult extends ResultImpl {
-    boolean userExists;
+    private boolean userExists;
 
     public CheckIfUserExistsResult(int errorCode, String errorMessage) {
         super(errorCode, errorMessage);

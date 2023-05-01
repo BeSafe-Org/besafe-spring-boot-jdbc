@@ -6,13 +6,13 @@ import com.besafe.besafebackend.modals.Interfaces.User.User;
 import java.time.LocalDateTime;
 
 public class UserImpl implements User {
-    String userId;
-    String userName;
-    String userEmail;
-    String dob;
-    String joinedOn;
-    String userSalt;
-    String userDigest;
+    private String userId;
+    private String userName;
+    private String userEmail;
+    private String dob;
+    private String joinedOn;
+    private String userSalt;
+    private String userDigest;
 
     public UserImpl(String userId, String userName, String userEmail, String dob, String joinedOn, String userSalt, String userDigest) {
         this.userId = userId;

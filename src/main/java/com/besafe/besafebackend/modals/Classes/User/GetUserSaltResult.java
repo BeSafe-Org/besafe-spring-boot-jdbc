@@ -3,7 +3,7 @@ package com.besafe.besafebackend.modals.Classes.User;
 import com.besafe.besafebackend.modals.Classes.Common.ResultImpl;
 
 public class GetUserSaltResult extends ResultImpl {
-    String userSalt;
+    private String userSalt;
 
     public GetUserSaltResult(int errorCode, String errorMessage) {
         super(errorCode, errorMessage);
