@@ -34,8 +34,8 @@ public class UserController {
     }
 
     @PutMapping("/user/salt/{userId}")
-        public GenerateUserSaltResult generateAndStoreUserSalt(@PathVariable String userId){
-        GenerateUserSaltResult generateUserSaltResult = new GenerateUserSaltResult(1, "Failure");
+        public UserSaltResult generateAndStoreUserSalt(@PathVariable String userId){
+        UserSaltResult generateUserSaltResult = new UserSaltResult(1, "Failure");
         try{
             String salt = userService.generateAndStoreUserSalt(userId);
             if(salt==null){
@@ -71,8 +71,8 @@ public class UserController {
     }
 
     @GetMapping("/user/salt/{userId}")
-    public GetUserSaltResult getUserSalt(@PathVariable String userId){
-        GetUserSaltResult getUserSaltResult = new GetUserSaltResult(1,"Failure");
+    public UserSaltResult getUserSalt(@PathVariable String userId){
+        UserSaltResult getUserSaltResult = new UserSaltResult(1,"Failure");
         try{
             String dbResult = userService.getUserSalt(userId);
             getUserSaltResult.setErrorCode(0);

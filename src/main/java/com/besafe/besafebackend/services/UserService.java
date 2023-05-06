@@ -1,12 +1,9 @@
 package com.besafe.besafebackend.services;
 
 import com.besafe.besafebackend.dao.UserDao;
-import com.besafe.besafebackend.modals.Classes.User.CheckIfUserExistsResult;
-import com.besafe.besafebackend.modals.Classes.User.GenerateUserSaltResult;
 import com.besafe.besafebackend.modals.Classes.User.SaltGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PathVariable;
 
 @Service
 public class UserService {
