@@ -13,4 +13,8 @@ public class AuthenticationService {
     public boolean storeOtpHash(String userId, String otpHash){
         return authenticationDao.storeOtpHash(userId, otpHash);
     }
+
+    public String getUserOtpHash(String userId){
+        return authenticationDao.getUserOtpHash(userId);
+    }
 }

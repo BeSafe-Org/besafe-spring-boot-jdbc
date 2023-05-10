@@ -10,6 +10,7 @@ public class SaltGenerator {
     public String generateSalt() {
         SecureRandom random = new SecureRandom();
         byte[] salt = new byte[16];
+        //    cfkhdtzfnxoxmmir
         random.nextBytes(salt);
         return Base64.getEncoder().encodeToString(salt);
     }

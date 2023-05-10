@@ -29,20 +29,35 @@ public class AuthenticationDao{
     }
 
     public boolean storeOtpHash(String userId, String otpHash){
-        try{
+        try {
             this.createOtpTable();
-            String query = "INSERT INTO OTP(OTPHASH, USERID) VALUES(?,?);";
-            int dbResult = jdbcTemplate.update(query, otpHash, userId);
-
-            if(dbResult==0){
-                return false;
-            }
-            else {
-                return true;
+            String query = "SELECT COUNT(*) FROM OTP WHERE USERID = ?";
+            int existingUserId = jdbcTemplate.queryForObject(query, Integer.class, userId);
+            if (existingUserId != 0) {
+                // Update OTP hash for the existing user
+                query = "UPDATE OTP SET OTPHASH = ? WHERE USERID = ?";
+                int dbResult = jdbcTemplate.update(query, otpHash, userId);
+                return dbResult > 0;
+            } else {
+                // Insert new OTP hash for a new user
+                query = "INSERT INTO OTP(OTPHASH, USERID) VALUES(?,?)";
+                int dbResult = jdbcTemplate.update(query, otpHash, userId);
+                return dbResult > 0;
             }
         }
         catch(Exception e){
             return false;
+        }
+    }
+
+    public String getUserOtpHash(String userId){
+        try{
+            String query = "SELECT OTPHASH FROM OTP WHERE USERID = ?";
+            String dbResult = (String) jdbcTemplate.queryForObject(query, String.class, userId);
+            return dbResult;
+        }
+        catch(Exception e){
+            return null;
         }
     }
 }
