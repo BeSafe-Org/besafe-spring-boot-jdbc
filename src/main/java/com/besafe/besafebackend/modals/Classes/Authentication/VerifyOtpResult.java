@@ -5,9 +5,8 @@ import com.besafe.besafebackend.modals.Classes.Common.ResultImpl;
 public class VerifyOtpResult extends ResultImpl {
     boolean otpHashIdentical;
 
-    public VerifyOtpResult(int errorCode, String errorMessage, boolean otpHashIdentical) {
+    public VerifyOtpResult(int errorCode, String errorMessage) {
         super(errorCode, errorMessage);
-        this.otpHashIdentical = otpHashIdentical;
     }
 
     public boolean isOtpHashIdentical() {
