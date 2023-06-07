@@ -6,7 +6,9 @@ import com.besafe.besafebackend.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+
 @RestController
+@CrossOrigin
 public class UserController {
 
     @Autowired
@@ -85,15 +87,21 @@ public class UserController {
         }
     }
 
-    @GetMapping("/user/digest/{userId}")
-    public GetUserDigestResult getUserDigest(@PathVariable String userId){
-        GetUserDigestResult getUserDigestResult = new GetUserDigestResult(1,"Failure");
+    @PostMapping("/user/digest/")
+    public ResultImpl verifyDigest(@RequestBody UserImpl user){
+        ResultImpl getUserDigestResult = new ResultImpl(1,"Failure");
         try{
-            String dbResult = userService.getUserDigest(userId);
-            getUserDigestResult.setErrorCode(0);
-            getUserDigestResult.setErrorMessage("Success");
-            getUserDigestResult.setUserDigest(dbResult);
-            return getUserDigestResult;
+            String dbResult = userService.getUserDigest(user.getUserId());
+            if(dbResult.equals(user.getUserDigest())){
+                getUserDigestResult.setErrorCode(0);
+                getUserDigestResult.setErrorMessage("Success");
+                return getUserDigestResult;
+            }
+            else{
+                getUserDigestResult.setErrorCode(406);
+                getUserDigestResult.setErrorMessage("Digest not matched");
+                return getUserDigestResult;
+            }
         }
         catch(Exception e){
             return getUserDigestResult;
