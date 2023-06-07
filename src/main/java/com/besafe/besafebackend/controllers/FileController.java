@@ -6,6 +6,8 @@ import com.besafe.besafebackend.services.FileService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @CrossOrigin
 public class FileController {
@@ -62,5 +64,25 @@ public class FileController {
         catch(Exception e){
             return fileDeleteResult;
         }
+    }
+
+    @GetMapping("/files/{userId}")
+    public List<UserFile> getFilesByUserId(@PathVariable String userId) {
+        return fileService.getFilesByUserId(userId);
+    }
+
+    @GetMapping("/files/ultrasafe/{userId}")
+    public List<UserFile> getUltrasafeFilesByUserId(@PathVariable String userId) {
+        return fileService.getUltraSafeFilesByUserId(userId);
+    }
+
+    @GetMapping("/files/starred/{userId}")
+    public List<UserFile> getStarredFilesByUserId(@PathVariable String userId) {
+        return fileService.getStarredFilesByUserId(userId);
+    }
+
+    @GetMapping("/files/deleted/{userId}")
+    public List<UserFile> getDeletedFilesByUserId(@PathVariable String userId) {
+        return fileService.getDeletedFilesByUserId(userId);
     }
 }

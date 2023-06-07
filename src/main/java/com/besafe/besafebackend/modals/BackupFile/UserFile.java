@@ -1,5 +1,9 @@
 package com.besafe.besafebackend.modals.BackupFile;
 
+import org.springframework.context.annotation.Bean;
+import org.springframework.stereotype.Repository;
+
+
 public class UserFile {
         String userId;
         String fileId;
@@ -7,16 +11,29 @@ public class UserFile {
         String mimeType;
         boolean deleted;
         boolean starred;
+        boolean ultraSafe;
 
-    public UserFile(String userId, String fileId, String fileName, String mimeType, boolean deleted, boolean starred) {
+    public boolean isUltraSafe() {
+        return ultraSafe;
+    }
+
+    public void setUltraSafe(boolean ultraSafe) {
+        this.ultraSafe = ultraSafe;
+    }
+
+    public UserFile(String userId, String fileId, String fileName, String mimeType, boolean deleted, boolean starred, boolean ultraSafe) {
         this.userId = userId;
         this.fileId = fileId;
         this.fileName = fileName;
         this.mimeType = mimeType;
         this.deleted = deleted;
         this.starred = starred;
+        this.ultraSafe = ultraSafe;
     }
 
+    public UserFile(){
+
+    }
     public String getUserId() {
         return userId;
     }
