@@ -29,9 +29,9 @@ public class File {
         public boolean addFile(UserFile userFile) {
             try {
                 this.createFileTable();
-                String query = "INSERT INTO Files(USERID, FILEID, FILENAME, MIMETYPE, DELETED, STARRED) VALUES (?, ?, ?, ?, ?, ?);";
+                String query = "INSERT INTO Files(USERID, FILEID, FILENAME, MIMETYPE, DELETED, STARRED, ULTRASECURE) VALUES (?, ?, ?, ?, ?, ?, ?);";
                 jdbcTemplate.update(query, userFile.getUserId(), userFile.getFileId(), userFile.getFileName(),
-                        userFile.getMimeType(), userFile.isDeleted() ? 1 : 0, userFile.isStarred() ? 1 : 0);
+                        userFile.getMimeType(), userFile.isDeleted() ? 1 : 0, userFile.isStarred() ? 1 : 0, userFile.isUltraSafe() ? 1 : 0);
                 return true;
             } catch (Exception e) {
                 return false;
@@ -64,7 +64,7 @@ public class File {
 
     public List<UserFile> getFilesByUserId(String userId) {
         try {
-            String query = "SELECT * FROM Files WHERE USERID = ?";
+            String query = "SELECT * FROM Files WHERE USERID = ? AND DELETED = 0;";
 
             List<Map<String, Object>> rows = jdbcTemplate.queryForList(query, userId);
 
@@ -74,7 +74,7 @@ public class File {
                 UserFile file = new UserFile();
                 file.setFileId(String.valueOf(row.get("FILEID")));
                 file.setUserId(String.valueOf(row.get("USERID")));
-                file.setFileName(String.valueOf(row.get("FILENAME")));
+                file.setFileName(String.valueOf(row.get("FILENAME"))); 
                 file.setMimeType(String.valueOf(row.get("MIMETYPE")));
                 file.setDeleted(String.valueOf(row.get("DELETED")).equals("1"));
                 file.setStarred(String.valueOf(row.get("STARRED")).equals("1"));
@@ -124,6 +124,8 @@ public class File {
                 file.setUserId(String.valueOf(row.get("USERID")));
                 file.setFileName(String.valueOf(row.get("FILENAME")));
                 file.setMimeType(String.valueOf(row.get("MIMETYPE")));
+                System.out.println(String.valueOf(row.get("DELETED")));
+                System.out.println(String.valueOf(row.get("DELETED")).equals("1"));
                 file.setDeleted(String.valueOf(row.get("DELETED")).equals("1"));
                 file.setStarred(String.valueOf(row.get("STARRED")).equals("1"));
                 file.setUltraSafe(String.valueOf(row.get("ULTRASECURE")).equals("1"));
