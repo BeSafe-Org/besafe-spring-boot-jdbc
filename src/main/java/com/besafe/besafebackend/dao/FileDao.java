@@ -61,9 +61,21 @@ public class FileDao {
         }
     }
 
-    public List<UserFile> searchFileByToken(String userId, String searchToken){
+    public List<UserFile> searchFileByToken(String userId, String category, String searchToken){
         try {
-            String query = "SELECT * FROM Files WHERE USERID=? and  FILENAME  LIKE '%"+searchToken+"%' AND DELETED = 0 ORDER BY FILENAME;";
+
+            String query = "";
+
+            if(category.equals("DELETED")){
+                query = " SELECT * FROM Files WHERE USERID=? AND  FILENAME  LIKE '%"+searchToken+"%' AND DELETED = 1 ORDER BY FILENAME;";
+            }
+            else if(category.equals("ALL")){
+                query = " SELECT * FROM Files WHERE USERID=? AND  FILENAME  LIKE '%"+searchToken+"%' AND DELETED = 0 ORDER BY FILENAME;";
+            }
+            else{
+                query = "SELECT * FROM Files WHERE USERID=? and  FILENAME  LIKE '%"+searchToken+"%' AND "+category+" = 1  AND DELETED = 0 ORDER BY FILENAME;";
+            }
+
 
             List<Map<String, Object>> rows = jdbcTemplate.queryForList(query, userId);
 

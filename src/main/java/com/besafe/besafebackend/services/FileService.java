@@ -24,8 +24,8 @@ public class FileService {
         return fileDao.updateFile(userFile);
     }
 
-    public List<UserFile> searchFileByToken(String userId, String searchToken) {
-        return fileDao.searchFileByToken(userId, searchToken);
+    public List<UserFile> searchFileByToken(String userId, String category, String searchToken) {
+        return fileDao.searchFileByToken(userId, category, searchToken);
     }
 
     public List<UserFile> getFilesByUserId(String userId) {

@@ -66,9 +66,9 @@ public class FileController {
         }
     }
 
-    @GetMapping("/files/{userId}/{searchToken}")
-    public List<UserFile> searchFileByToken(@PathVariable String userId, @PathVariable String searchToken) {
-        return fileService.searchFileByToken(userId, searchToken);
+    @GetMapping("/files/{category}/{userId}/{searchToken}")
+    public List<UserFile> searchFileByToken(@PathVariable String category, @PathVariable String userId, @PathVariable String searchToken) {
+        return fileService.searchFileByToken(userId, category, searchToken);
     }
 
     @GetMapping("/files/{userId}")
