@@ -1,6 +1,6 @@
 package com.besafe.besafebackend.services;
 
-import com.besafe.besafebackend.dao.File;
+import com.besafe.besafebackend.dao.FileDao;
 import com.besafe.besafebackend.modals.BackupFile.UserFile;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,7 +11,7 @@ import java.util.List;
 public class FileService {
 
     @Autowired
-    File fileDao;
+    FileDao fileDao;
     public boolean addFile(UserFile userFile){
         return fileDao.addFile(userFile);
     }
@@ -22,6 +22,10 @@ public class FileService {
 
     public boolean updateFile(UserFile userFile){
         return fileDao.updateFile(userFile);
+    }
+
+    public List<UserFile> searchFileByToken(String userId, String searchToken) {
+        return fileDao.searchFileByToken(userId, searchToken);
     }
 
     public List<UserFile> getFilesByUserId(String userId) {
