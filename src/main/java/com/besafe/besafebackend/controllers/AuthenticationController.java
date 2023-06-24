@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
+@CrossOrigin
 public class AuthenticationController {
 
     @Autowired
@@ -41,6 +42,16 @@ public class AuthenticationController {
         VerifyOtpResult verifyOtpResult = new VerifyOtpResult(1, "Failure");
 
         try{
+            String userId = verifyOtpRequest.getUserId();
+            String otpHashFromUser = verifyOtpRequest.getOtpHash();
+            String otpHashFromDB = authenticationService.getUserOtpHash(userId);
+
+            verifyOtpResult.setErrorCode(0);
+            verifyOtpResult.setErrorMessage("Success");
+
+            if(otpHashFromUser.equals(otpHashFromDB)){
+                verifyOtpResult.setOtpHashIdentical(true);
+            }
             return verifyOtpResult;
         }
         catch(Exception e){
